@@ -83,8 +83,14 @@ function deleteFileUpAjax(divId,name){
 }
 
 function enviarForm(std){
-	$("#Registros_update_estado").val(std);
+	// alert(std);
+	// console.log(std);
+    $("#Registros_update_estado").val(std);
+	// alert($("#Registros_update_estado").val(std));
+	// console.log($("#Registros_update_estado").val(std));	
 	$("#registro-form").submit();
+	// alert($("#registro"));
+	// console.log($("#registro"));		
 }
 
 function resetForm(id) {
@@ -549,8 +555,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 					echo '<i class="icon-info-sign" rel="tooltip" title = "Año de fundación de la colección, soportada en actos administrativos del titular de la colección."></i>';
 					echo $form->textAreaRow($model->registros_update, 'descripcion', array('class'=>'span4', 'rows'=>4));
 					echo '<i class="icon-info-sign" rel="tooltip" title = "Texto que describe la colección y que incluye características sobresalientes de la misma, está orientado al público en general. Se sugiere incluir la misión y visión de la colección."></i>';
-					echo $form->textFieldRow($model->registros_update, 'direccion', array('size'=>32,'maxlength'=>2000, 'class'=>'textareaA'));
-					echo '<i class="icon-info-sign" rel="tooltip" title = "Dirección donde se localiza físicamente la colección."></i>';
 					echo '<div>';
 					echo $form->dropDownListRow($model->registros_update, 'departamento_id', $model->entidad->ListarDepartamentos(),array('prompt' => 'Seleccione...','onChange' => 'actSelectCiudad(this,"Registros_update_ciudad_id")'));
 					echo '<i class="icon-info-sign" rel="tooltip" title = "Departamento donde se encuentra la colección."></i>';
@@ -561,7 +565,74 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 					echo '<i class="icon-info-sign" rel="tooltip" title = "Números de teléfono o fax de la colección."></i>';
 					echo $form->textFieldRow($model->registros_update, 'email', array('size'=>32,'maxlength'=>45, 'class'=>'textareaA'));
 					echo '<i class="icon-info-sign" rel="tooltip" title = "Dirección electrónica (e-mail) de la colección."></i>';
+					echo '<div>';
+					echo $form->textFieldRow($model->registros_update, 'direccion', array('style'=>'line-height: 10px','class'=>'span4', 'rows'=>4));			
+					echo '<i class="icon-info-sign" rel="tooltip" title = "Dirección donde se localiza físicamente la colección."></i>';
+					echo '</div>';
+					echo $form->textFieldRow($model->registros_update, 'Latitud', array('style'=>'line-height: 10px','class'=>'span4', 'rows'=>4));			
+					echo $form->textFieldRow($model->registros_update, 'Logitud', array('style'=>'line-height: 10px','class'=>'span4', 'rows'=>4));					
+					echo '<div class="control-group"><input id="buscarGeo" class="addType btn btn-success btn-small" type="button" value="Ver" ></div>';
+                    echo '<div id="map" style="width: 100%; height: 400px;"></div>';					
 				?>
+				<script>
+				  var markers = [];
+					// Sets the map on all markers in the array.
+					function setMapOnAll(map) {
+					  for (var i = 0; i < markers.length; i++) {
+						markers[i].setMap(map);
+					  }
+					}	
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    initMap();
+	if (document.getElementById('Registros_update_direccion').value)
+	{
+		document.getElementById('buscarGeo').click();	
+	}
+});					
+		
+				  function initMap() {
+					var map = new google.maps.Map(document.getElementById('map'), {
+					center: new google.maps.LatLng(5.707729, -76.666929),
+					zoom: 5,
+					mapTypeId: google.maps.MapTypeId.HYBRID
+					});
+					var geocoder = new google.maps.Geocoder();
+
+					document.getElementById('buscarGeo').addEventListener('click', function() {
+					  geocodeAddress(geocoder, map);
+					});
+				  }
+
+				  
+				  function geocodeAddress(geocoder, resultsMap) {
+					var address = document.getElementById('Registros_update_direccion').value;
+					geocoder.geocode({'address': address}, function(results, status) {
+					  if (status === google.maps.GeocoderStatus.OK) {
+						setMapOnAll(null);
+						  
+						resultsMap.setCenter(results[0].geometry.location);
+						
+						var lat = results[0].geometry.location.lat;
+						var lng = results[0].geometry.location.lng;
+						$("#Registros_update_Latitud").val(lat);
+						$("#Registros_update_Logitud").val(lng);
+						
+						var marker = new google.maps.Marker({
+						  map: resultsMap,
+						  position: results[0].geometry.location
+						});	
+						
+						markers.push(marker);
+					  } else {
+						//alert('Geocode was not successful for the following reason: ' + status);
+					  }
+					});
+				  }
+				</script>
+				<script async defer
+				src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+				</script>				
 			</fieldset>
 			
 			<fieldset>

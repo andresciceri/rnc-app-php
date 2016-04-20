@@ -66,7 +66,9 @@ $(document).ready(function() {
 
 <fieldset>
 	<h1 style="margin:0 0 -25px 0;">Lista de colecciones registradas</h1>
-	<?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','label'=>'Descargar lista detallada','url' => Yii::app()->createUrl("reporte/reporte"),'htmlOptions' => array('style' => 'float:left;margin-top:25px')));?>
+	<?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','label'=>'Descargar lista detallada','url' => Yii::app()->createUrl("reporte/reporte"),'htmlOptions' => array('style' => 'float:right;margin-top:25px;width:250px;')));?>
+	<?php $this->widget('bootstrap.widgets.TbButton', array('type'=>'info','label'=>'Mapas de colecciones ','url' => "http://rncwp.lumon.com.co/colecciones/",'htmlOptions' => array('style' => 'float:right;margin-top:25px;width:250px;')));?>
+
 <div id="content-front">
 
 <table id="registros_table" class="display" cellspacing="0" >

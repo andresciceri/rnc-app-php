@@ -5,7 +5,14 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/js/jqu
 <script type="text/javascript">
 var table;
 var curadores = [];
-$(document).ready(function() {
+$(document).ready(function () {
+    $('#registro-cancel-form-submit').attr("disabled", true);
+    $('#checkbox_valida').change(function () {
+        if (this.checked)
+            $('#registro-cancel-form-submit').attr("disabled", false);
+        else
+            $('#registro-cancel-form-submit').attr("disabled", true);
+    });
 	//<?=Yii::app()->createUrl('registros/curadores')?>
 	
     table = $('#curadores_table').DataTable( {
@@ -21,7 +28,8 @@ $(document).ready(function() {
         ]
     } );
 } );
-
+   
+  
 function adicionarCurador(){
 	var name  = $("#Curador_nombre").val();
 	var cargo = $("#Curador_cargo").val();
@@ -125,8 +133,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <?php 
 	echo $form->textFieldRow($model, 'nombre', array('size'=>32,'maxlength'=>150, 'class'=>'textareaA', 'required' => true));
 	echo '<i class="icon-info-sign" rel="tooltip" title = "Nombre del curador vinculado a la colección."></i>';
-	echo $form->textFieldRow($model, 'apellido', array('size'=>32,'maxlength'=>150, 'class'=>'textareaA', 'required' => true));
-	echo '<i class="icon-info-sign" rel="tooltip" title = "Apellido del curador vinculado a la colección."></i>';
+    //echo $form->textFieldRow($model, 'apellido', array('size'=>32,'maxlength'=>150, 'class'=>'textareaA', 'required' => true));
+    //echo '<i class="icon-info-sign" rel="tooltip" title = "Apellido del curador vinculado a la colección."></i>';
 	echo $form->dropDownListRow(Grupo_Taxonomico::model(), 'nombre', Grupo_Taxonomico::model()->listarGrupoTaxonomico(),array('onchange' => 'actSelectSubgrupo(this,"Curador_subgrupo_taxonomico_id")','prompt' => 'Seleccionar...'));
 	echo '<i class="icon-info-sign" rel="tooltip" title = "Grupo biológico que tiene a cargo el curador."></i>';
 	echo $form->dropDownListRow($model, 'subgrupo_taxonomico_id', Subgrupo_Taxonomico::model()->listarSubgrupoTaxonomico(),array('prompt' => 'Seleccionar...', 'required' => true));
@@ -141,9 +149,13 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	echo '<i class="icon-info-sign" rel="tooltip" title = "Información en línea de la trayectoria o intereses en investigación del curador. Ej: CvLac, LinkedIn, Research Gate."></i>';
 
 ?>
+
 <div id="catalogouser-botones-internos" class="form-actions pull-right">
+    <input type="checkbox" name="validar" id="checkbox_valida"  value="1" /> He leído y acepto los términos y condiciones de uso de mis datos <a href="http://rncwp.lumon.com.co/terminos-y-condiciones/">Ver Términos y Condiciones</a>
+<br />
 <?php 
 	$this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'button', 'id'=>'registro-cancel-form-submit', 'type'=>'success', 'label'=>'Adicionar curador', 'htmlOptions' => array('onclick' => 'adicionarCurador()')));
 ?>
+
 </div>
 <?php $this->endWidget(); ?>

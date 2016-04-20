@@ -40,7 +40,8 @@ class Curador extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-				array('nombre,apellido,cargo,telefono,email,grupo_taxonomico_id,subgrupo_taxonomico_id','required'),
+				array('nombre,cargo,telefono,email,grupo_taxonomico_id,subgrupo_taxonomico_id','required'),
+                //array('nombre,apellido,cargo,telefono,email,grupo_taxonomico_id,subgrupo_taxonomico_id','required'),
 				array('nombre,cargo,email','length','max'=>150),
 				array('telefono','length','max' => 45),
 				//array('telefono','numerical','integerOnly'=>true),
@@ -68,7 +69,7 @@ class Curador extends CActiveRecord
 	{
 		return array(
 				'nombre'					=> 'Nombres',
-				'apellido'					=> 'Apellidos',
+                //'apellido'					=> 'Apellidos',
 				'cargo'						=> 'Especialidad',
 				'telefono'					=> 'Teléfono(s)',
 				'email'						=> 'Correo electrónico',

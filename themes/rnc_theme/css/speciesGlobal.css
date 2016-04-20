@@ -10,7 +10,7 @@
       border: 0;  
       font-size: 100%;  
       font: inherit;
-      font-family: 'Open Sans', Helvetica, Arial, sans-serif !important;
+      font-family: 'Open Sans',Helvetica,Arial, sans-serif !important;
       vertical-align: baselinebaseline;  
       outline: none;  
       -webkit-box-sizing: border-box;  
@@ -19,7 +19,7 @@
     }  
     html, body { height: 100%; }  
       
-    article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }  
+    article, aside, details, figcaption, figure, footer, header, hgroup, /*menu,*/ nav, section { display: block; }  
     ol, ul { list-style: none; }  
       
     blockquote, q { quotes: none; }  
@@ -37,7 +37,8 @@
 body {
 	font-size: 80%;
 	color: #333;
-	background: rgba(255, 251, 237, 0.5) url("../images/bg_ramas.png") repeat center center fixed !important;
+	/*background: #FFFCF5  !important;*/
+	background: #F4F4F4  !important;
 	font-family: 'Open sans', Helvetica, Verdana, Helvetica, Arial;
 	text-align: left;
 	padding: 0;
@@ -86,15 +87,21 @@ a[href*="download"] {
 a img {
 	border: none;
 }
+
+.harmonization{
+	font-family: raleway !important;
+	font-size: 1em;
+	font-weight: normal !important; 
+}
 textarea {
 	font: 0.9em 'Open sans',Verdana, Arial, Helvetica, sans-serif;
 }
-h1,
-#content fieldset legend{
+h1, #content fieldset legend{
 	font-size: 1.8em !important;
 	margin: 20px 0 0 0;
 	font-weight: 300 !important;
-	color: #5c5134 !important;
+	/* color: #5c5134 !important; */
+	color: #308499 !important;
 	text-transform: uppercase;
 }
 h2 {
@@ -208,14 +215,15 @@ img.standalone {
 
 /* ---- Top Header ---- */
 
-header.sib {background: rgb(92, 81, 52); height:50px; color:white; text-transform:uppercase; min-width: 770px; position: fixed; width: 100%; z-index: 10000; top: 0px}
-header.sib a{ color:white; padding:0px; display:inline-block; vertical-align:top; margin:0 10px; padding-right: 4%; }
+header.sib {background: white; height:80px; color:white; text-transform:uppercase; min-width: 770px; /*position: fixed*/; width: 100%; z-index: 10000; top: 0px}
+header.sib a{ color:#818B92; padding:0px; display:inline-block; /*vertical-align:top*/; margin:0 10px; /*padding-right: 4%*/; }
 header.sib .top_menu {width: 550px; margin: 0 auto; display: inline;}
 header.sib .logo{
 		float: left;
 		position: absolute;
 		z-index:15000;
-		margin-left: 100px
+		margin-left: 100px;
+		width: 14.6%;
 		}
 		header.sib .logo:hover{
 			filter: alpha(opacity=70);
@@ -230,7 +238,7 @@ header.sib .logo{
 			display:block;
 			height:20px;
 			width:100%;
-			background: url(images/shadow_top.png) no-repeat top center;
+			/*background: url(images/shadow_top.png) no-repeat top center;*/
 			position: absolute;
 			margin-top: 50px;
 			}
@@ -239,7 +247,7 @@ header.sib .logo{
 			margin: 0 auto;
 		}
 header h1{font-family: 'Open Sans Condensed' !important; font-weight: 400; font-size: 1.7em !important; display: block; margin: 4px auto 0; text-align: center; color: white !important;}
-header .nav-pills { float: right; display: inline-block; position: absolute; right: 12px; top: 0px;}
+header .nav-pills { float: right; display: inline/*-block*/; position: absolute; right: 12px; top: 0px;}
 header .nav-pills a{
 	font-weight: 700;
 	font-size: 0.8em;
@@ -261,8 +269,8 @@ header .nav-pills span:first-child{
 header .nav-pills  li:first-child a,
 header .nav-pills  li:nth-child(2) a,
 header .nav-pills  li:nth-child(3) a{
-	color: white;
-    background-color:rgba(161,134,63,0.7) ;
+	color: #308499;
+    background-color:white ;
 }
 header .nav-pills  li:nth-child(3){
 	margin-right: 0px;
@@ -290,7 +298,7 @@ footer {
 	clear: both;
 	margin: 0;
 	color: #515254 !important;
-	background: #35322C url("images/shadow_top.png") no-repeat top center;
+	background: white url("images/shadow_top.png") no-repeat top center;
 	line-height: 1.5em;
 	position: relative;
 	bottom: 0px;
@@ -303,7 +311,7 @@ footer {
 	min-height: 120px;
 }
 
-footer section{ margin: 0 auto; max-width: 1100px; padding: 20px 0 !important; }
+footer section{ margin: 0 auto; max-width: 1870px; padding: 20px 0 !important; }
 footer section div{ display: inline-block !important; vertical-align: top;}
 footer section div:nth-child(1){ width: 100%; text-align: center; display: inline-block;}
 footer section div:nth-child(2){ width: 100%; padding-top: 10px; min-width: 325px; padding-bottom: 10px; display: block !important;}
@@ -354,7 +362,7 @@ footer .nav-pills > li {
 
 
 footer  p{
-	color: white;
+	color: black;
 	font-size: 0.8em;
 	display: block;
 	padding-left: 10px;
@@ -530,7 +538,7 @@ div:empty {
 .caja_amarilla,
 #content fieldset{
 	margin-bottom: 10px;
-	background-color: rgb(250,243,220);
+	background-color: #EDEDE2;
 	padding:15px 25px;
 	display:block;
 	text-align:left;
@@ -632,7 +640,7 @@ h2 .twitter-share-button{
 .nav-pills > .active > a, .nav-list > .active > a:hover {
 	
 	color: #fff !important;
-	background-color: rgba(161, 134, 63, 1) !important;
+	background-color: rgba(255,255,255,.5) !important;
 	text-align: center;
 }
 
@@ -681,6 +689,7 @@ h2 .twitter-share-button{
 	display: inline-block;
 	vertical-align: top;
 }
-.home_panel #textHomeIntro{
-	width: 640px;
-	margin-left: 20px;
+    .home_panel #textHomeIntro {
+        width: 640px;
+        margin-left: 20px;
+    }

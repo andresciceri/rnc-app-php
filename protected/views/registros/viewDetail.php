@@ -76,11 +76,53 @@ $this->widget('bootstrap.widgets.TbButtonGroup', array(
 						'registros.fecha_dil',
 						'fecha_act',
 						'fecha_rev',
+						'Latitud',
+						'Logitud'
 					)
 				));
 				?>
+				<input type="hidden" id="hddLat" value="<?php echo $model->Latitud; ?>">
+				<input type="hidden" id="hddLng" value="<?php echo $model->Logitud; ?>">
+				
+			<div id="map" style="width: 100%; height: 400px;"></div>
+				<script>
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    initMap();
+});					
+				
+				  var markers = [];
+					// Sets the map on all markers in the array.
+					function setMapOnAll(map) {
+					  for (var i = 0; i < markers.length; i++) {
+						markers[i].setMap(map);
+					  }
+					}					
+		
+				  function initMap() {
+					var map = new google.maps.Map(document.getElementById('map'), {
+					center: new google.maps.LatLng(5.707729, -76.666929),
+					zoom: 5,
+					mapTypeId: google.maps.MapTypeId.HYBRID
+					});
+
+					var lat = $('#hddLat').val();
+					var lng = $('#hddLng').val();
+					var latLng = new google.maps.LatLng(lat,lng);	
+					
+					var marker = new google.maps.Marker({
+						position: latLng,
+						map: map,
+						title: 'Hello World!'
+					});    
+				  }
+
+				</script>
+				<script async defer
+				src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+				</script>				
 			</fieldset>
 			
+				
 			<fieldset>
 				<legend class="form_legend">Cobertura</legend>
 				<?php 

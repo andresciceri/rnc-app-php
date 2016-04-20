@@ -16,7 +16,7 @@ $(document).ready(function() {
 		});
 	});
 </script>
-<h1><?php echo CHtml::encode(Yii::app()->name); ?></h1>
+<h1 style="margin-top:30px;"><?php //echo CHtml::encode(Yii::app()->name); ?></h1>
 
 <div id="ingreso">
 	<div class="form" align="center">

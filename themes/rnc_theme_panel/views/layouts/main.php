@@ -60,24 +60,25 @@
 <body>
 
 	<header class="sib">
-		<a class="logo" href= "<?=Yii::app()->createUrl("site/index");?>" title="Registro Único Nacional de Colecciones Biológicas"><img  src="<?=Yii::app()->theme->baseUrl?>/images/logo_rnc.png"></a>
+		<a class="logo" href= "http://rncwp.lumon.com.co" title="Registro Único Nacional de Colecciones Biológicas"><img  src="<?=Yii::app()->theme->baseUrl?>/images/logo_rnc.png"></a>
 		<!--h1><?php echo CHtml::encode(Yii::app()->name);  ?></h1-->
-
+			
 			<?php 
 			$this->widget('bootstrap.widgets.TbMenu', array(
 				'type' => 'pills',
 				'stacked'=>false,
 				'items' => array(
-					array('label' => 'Preguntas frecuentes', 'url' => array('site/preguntas')),
-					array('label' => 'Colecciones biológicas', 'url' => array('registros/colecciones')),
-					array('label' => 'Ley 1753 de 2015', 'url' => array('site/ley')),
-					array('label' => 'Contáctenos', 'url' => array('pqrs/create')),
-					array('label' => 'Registro o Actualización', 'url' => array('site/instructivo')),
-					array('label' => 'Solicitar usuario', 'url' => array('entidad/solicitud')),
-					array('label' => 'Ingresar', 'url' => array('admin/index')),
+                    //array('label' => 'Preguntas frecuentes', 'url' => array('site/preguntas')),
+                    //array('label' => 'Colecciones biológicas', 'url' => array('registros/colecciones')),
+                    //array('label' => 'Directorio de Especialistas', 'url' => array('Curador/Especialista')),
+                    //array('label' => 'Ley 1753 de 2015', 'url' => array('site/ley')),
+                    //array('label' => 'Contáctenos', 'url' => array('pqrs/create')),
+                    //array('label' => 'Registro o Actualización', 'url' => array('site/instructivo')),
+                    //array('label' => 'Solicitar usuario', 'url' => array('entidad/solicitud')),
+					//array('label' => 'Ingresar', 'url' => array('admin/index')),
 				)
 			));
-			?>
+            ?>
 	</header> <!-- Fin header -->
 
 		<div id="container">
@@ -204,23 +205,26 @@
 
 			</div>
 		</div>
+	
 	<footer>
 		<section>
-			<div>
+			<div style="
+    background-color: #868685; width:100% ">
 			<?php 
-				$this->widget('bootstrap.widgets.TbMenu', array(
-					'type' => 'pills',
-					'stacked'=>false,
-					'items' => array(
-						array('label' => 'Solicitar usuario', 'url' => array('entidad/solicitud')),
-						array('label' => 'Ingresar', 'url' => array('admin/index')),
-						array('label' => 'Colecciones biológicas', 'url' => array('registros/colecciones')),
-						array('label' => 'Contáctenos', 'url' => array('pqrs/create')),
-						array('label' => 'Registro o Actualización', 'url' => array('site/instructivo')),
-						array('label' => 'Preguntas frecuentes', 'url' => array('site/preguntas'))
-					)
-				));
-			?>
+            $this->widget('bootstrap.widgets.TbMenu', array(
+                'type' => 'pills',
+                'stacked'=>false,
+                'items' => array(
+                    array('label' => 'Solicitar usuario', 'url' => array('entidad/solicitud')),
+                    array('label' => 'Ingresar', 'url' => array('admin/index')),
+                    array('label' => 'Colecciones biológicas', 'url' => array('registros/colecciones')),
+                    array('label' => 'Directorio de Especialistas', 'url' => array('Curador/Especialista')),
+                    array('label' => 'Contáctenos', 'url' => array('pqrs/create')),
+                    array('label' => 'Registro o Actualización', 'url' => array('site/instructivo')),
+                    array('label' => 'Preguntas frecuentes', 'url' => array('site/preguntas'))
+                )
+            ));
+            ?>
 			</div>
 
 			<div class="doscol clearfix">
@@ -240,7 +244,7 @@
 				</ul>
 			</div>	
 
-			<p>2014 · Instituto de Investigación de Recursos Biológicos Alexander Von Humboldt · Ministerio de Medio Ambiente de Colombia · SiB Colombia</p>
+			<p>Instituto de Investigación de Recursos Biológicos Alexander Von Humboldt · Ministerio de Medio Ambiente de Colombia · SiB Colombia</p>
 		</section>
 	</footer>
 	

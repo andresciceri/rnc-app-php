@@ -111,21 +111,21 @@ class AdminController extends Controller{
 	public function cleanFileTmp(){
 	
 		$dirPath	= "temp_rnc/";
-		$directorio = opendir($dirPath);
+        //$directorio = opendir($dirPath);
 	
-		while ($archivo = readdir($directorio)){
-			$path		= $dirPath.$archivo;
-			if (is_file($path) && ($archivo != "." || $archivo != "..") ) {
-				$op_file = pathinfo($path);
+        //while ($archivo = readdir($directorio)){
+        //    $path		= $dirPath.$archivo;
+        //    if (is_file($path) && ($archivo != "." || $archivo != "..") ) {
+        //        $op_file = pathinfo($path);
 				
-				$filetime = time() - filemtime($path);
-				if($filetime >= (60*60*1)){
-					unlink($path);
-				}
+        //        $filetime = time() - filemtime($path);
+        //        if($filetime >= (60*60*1)){
+        //            unlink($path);
+        //        }
 				
-			}
-		}
+        //    }
+        //}
 	
-		closedir($directorio);
+        //closedir($directorio);
 	}
 }

@@ -23,7 +23,7 @@ class RegistrosController extends Controller{
 	
 		return array(
 				array('allow',  // allow all users to perform 'index' and 'view' actions
-						'actions'=>array('index','view'),
+						'actions'=>array('index','view', 'coleccionesJson'),
 						'users'=>array('@'),
 						'roles'=>array('admin,entidad'),
 				),
@@ -312,7 +312,7 @@ class RegistrosController extends Controller{
 							}
 						}
 
-						if(isset($_POST['Registros_update']['curadores']) && $_POST['Registros_update']['curadores'] != ""){
+						if(isset($_POST['Registros_update']['curadores'])){
 							$curadores = json_decode($_POST['Registros_update']['curadores']);
 							foreach ($curadores as $key => $value) {
 								$model->registros_update->curador = new Curador();
@@ -1029,7 +1029,7 @@ class RegistrosController extends Controller{
 							}
 						}
 
-						if(isset($_POST['Registros_update']['curadores']) && ($_POST['Registros_update']['curadores'] != "")){
+						if(isset($_POST['Registros_update']['curadores'])){
 							$curadores = json_decode($_POST['Registros_update']['curadores']);
 							foreach ($curadores as $key => $value) {
 								$model->registros_update->curador = new Curador();
@@ -1282,7 +1282,7 @@ class RegistrosController extends Controller{
 						$modelRegistroUpdate->contactos->attributes = $_POST['Contactos'];
 				
 						//$modelRegistroUpdate->contactos->validate();
-						if($modelRegistroUpdate->contactos->save(false)){
+						if($modelRegistroUpdate->contactos->save()){
 							$success_saving_all = true;
 							$modelRegistroUpdate->contactos_id = $modelRegistroUpdate->contactos->id;
 						}
@@ -1292,7 +1292,7 @@ class RegistrosController extends Controller{
 						$modelRegistroUpdate->dilegenciadores->attributes = $_POST['Dilegenciadores'];
 				
 						//$modelRegistroUpdate->dilegenciadores->validate();
-						if($modelRegistroUpdate->dilegenciadores->save(false) && $success_saving_all){
+						if($modelRegistroUpdate->dilegenciadores->save() && $success_saving_all){
 							$success_saving_all = true;
 							$modelRegistroUpdate->dilegenciadores_id = $modelRegistroUpdate->dilegenciadores->id;
 						}else {
@@ -1302,7 +1302,7 @@ class RegistrosController extends Controller{
 						
 					if($success_saving_all){
 						
-						if(!$modelRegistroUpdate->save(false)){
+						if(!$modelRegistroUpdate->save()){
 							$success_saving_all = false;
 						}else{
 							$success_saving_all = true;
@@ -1323,7 +1323,7 @@ class RegistrosController extends Controller{
 								if($modelRegistroUpdate->tamano_coleccion->tipo_preservacion_id == 22){
 									$modelRegistroUpdate->tamano_coleccion->otro = $valor_col['otro'];
 								}
-								$modelRegistroUpdate->tamano_coleccion->save(false);
+								$modelRegistroUpdate->tamano_coleccion->save();
 							}
 						}
 				
@@ -1337,7 +1337,7 @@ class RegistrosController extends Controller{
 								$modelRegistroUpdate->tipos_en_coleccion->cantidad				= $valor_tipo['cantidad'];
 								$modelRegistroUpdate->tipos_en_coleccion->Registros_update_id	= $modelRegistroUpdate->id;
 									
-								$modelRegistroUpdate->tipos_en_coleccion->save(false);
+								$modelRegistroUpdate->tipos_en_coleccion->save();
 							}
 						}
 				
@@ -1361,7 +1361,7 @@ class RegistrosController extends Controller{
 									$modelRegistroUpdate->composicion_general->subgrupo_otro = $valor_comp['subgrupo_otro'];
 								}
 								
-								$modelRegistroUpdate->composicion_general->save(false);
+								$modelRegistroUpdate->composicion_general->save();
 							}
 						}
 				
@@ -1390,7 +1390,7 @@ class RegistrosController extends Controller{
 										$archivoModel->clase				= 1;
 										$archivoModel->Registros_update_id 	= $modelRegistroUpdate->id;
 				
-										$archivoModel->save(false);
+										$archivoModel->save();
 									}
 								}
 							}
@@ -1423,7 +1423,7 @@ class RegistrosController extends Controller{
 										$archivoModel->clase				= 2;
 										$archivoModel->Registros_update_id 	= $modelRegistroUpdate->id;
 				
-										$archivoModel->save(false);
+										$archivoModel->save();
 									}
 								}
 							}
@@ -1971,6 +1971,84 @@ class RegistrosController extends Controller{
 		));
 	}
 	
+	public function actionColeccionesJson(){
+		
+		$datos = array();
+		$model = Registros_update::model();				
+		
+		$criteria=new CDbCriteria;
+		$criteria->compare('t.estado', 2);
+		$criteria->with = array('registros','county','contactos','urls_registros');
+		
+		$dataRegitros = $model->findAll($criteria);
+			
+		foreach ($dataRegitros as $registro){
+			$link_detail = '<a class="btn btn-success" href="'.Yii::app()->createUrl("registros/detail", array("id"=>$registro->id)).'" role="button">Detalle</a>';
+			$datos[] = array($registro->registros->numero_registro.$this->getUrlColection($registro->urls_registros),$registro->registros->entidad->titular,$registro->nombre,$registro->acronimo,$registro->county->department->department_name,$registro->county->county_name,date_format(date_create($registro->fecha_act), "Y-m-d"),$registro->contactos->nombre,$link_detail);
+		}			
+			
+		header('Content-type: application/json; charset=utf-8');
+		header('Vary: Accept-Encoding');
+			
+		echo $_GET['jsoncallback']."(".CJSON::encode($dataRegitros).")";
+
+		
+	}	
+	public function actionColeccionesJsonFiltered($grupoTaxonomico){
+		
+		$datos = array();
+		$model = Registros_update::model();				
+		
+		if ($grupoTaxonomico == "vertebrados")
+		{
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 4";	
+		}else if ($grupoTaxonomico == "invertebrados"){
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 3";	
+		}else if ($grupoTaxonomico == "microorganismos"){
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 2";	
+		}else if ($grupoTaxonomico == "plantas"){
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 5";	
+		}else if ($grupoTaxonomico == "hongos"){		
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 6";	
+		}else if ($grupoTaxonomico == "liquenes"){			
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id AND comp.grupo_taxonomico_id = 7";	
+		}else{
+			$SQL="SELECT upt.* FROM composicion_general comp, registros_update upt WHERE comp.Registros_update_id = upt.id";	
+		}
+		
+		$connection=Yii::app()->db; 
+		$command=$connection->createCommand($SQL);
+		$rowCount=$command->execute(); // execute the non-query SQL
+		$dataReader=$command->query(); // execute a query SQL			  			
+		$rows=$dataReader->readAll();
+			
+		header('Content-type: application/json; charset=utf-8');
+		header('Vary: Accept-Encoding');
+			
+		echo $_GET['jsoncallback']."(".CJSON::encode($rows).")";
+
+		
+	}	
+	public function actionMunicipioJsonFiltered($Dpto){
+		
+		$datos = array();
+		$model = Registros_update::model();				
+		
+		$SQL="SELECT * FROM county WHERE department_id =".$Dpto;	
+		
+		$connection=Yii::app()->db; 
+		$command=$connection->createCommand($SQL);
+		$rowCount=$command->execute(); // execute the non-query SQL
+		$dataReader=$command->query(); // execute a query SQL			  			
+		$rows=$dataReader->readAll();
+			
+		header('Content-type: application/json; charset=utf-8');
+		header('Vary: Accept-Encoding');
+			
+		echo $_GET['jsoncallback']."(".CJSON::encode($rows).")";
+
+		
+	}	
 	private function getUrlColection($urls){
 		if(is_array($urls)){
 			$urlP = Yii::app();
@@ -2120,7 +2198,7 @@ class RegistrosController extends Controller{
 		if (count($curador) > 0 && $idRegistro != 0) {
 			$data = array("data" => array());
 			foreach ($curador as $key => $value) {
-				array_push($data["data"], array("nombre" => isset($value->nombre) ? $value->nombre : "-","cargo"=>isset($value->cargo) ? $value->cargo : "-","telefono"=>isset($value->telefono) ? $value->telefono : "-","email"=>isset($value->email) ? $value->email : "-","pagina_web"=>isset($value->pagina_web) ? $value->pagina_web : "-","grupo_taxonomico" => isset($value->subgrupo_taxonomico->grupo_taxonomico->nombre) ? $value->subgrupo_taxonomico->grupo_taxonomico->nombre : "-", "subgrupo_taxonomico" => isset($value->subgrupo_taxonomico->nombre) ? $value->subgrupo_taxonomico->nombre : "-"));
+				array_push($data["data"], array("nombre" => $value->nombre,"cargo"=>$value->cargo,"telefono"=>$value->telefono,"email"=>$value->email,"pagina_web"=>$value->pagina_web,"grupo_taxonomico" => $value->subgrupo_taxonomico->grupo_taxonomico->nombre, "subgrupo_taxonomico" => $value->subgrupo_taxonomico->nombre));
 			}
 
 			echo CJSON::encode($data);

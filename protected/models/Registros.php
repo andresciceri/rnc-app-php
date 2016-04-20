@@ -228,7 +228,7 @@ class Registros extends CActiveRecord
 	
 	public function listarFolderHistoricos($folder = ""){
 		$datos = array();
-		$dirPath	= "/var/www/html/rnc_files".DIRECTORY_SEPARATOR."Registro_Colecciones_Biologicas_Historicos";
+		$dirPath	= "rnc_files".DIRECTORY_SEPARATOR."Registro_Colecciones_Biologicas_Historicos";
 
 		//$dirPath        = "..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR."disk2".DIRECTORY_SEPARATOR."rnc_files".DIRECTORY_SEPARATOR."Registro_Colecciones_Biologicas_Historicos".DIRECTORY_SEPARATOR;
 		$dir = "";
@@ -281,7 +281,7 @@ class Registros extends CActiveRecord
 						$isDir = 0;
 					}
 					//$datos[] = array('id'=> $cont,'nombre'=>utf8_encode($archivo),'dir'=>$dir.$archivo,'isDir' => $isDir);
-					$datos[] = array((isset($dataAux[$arch_aux[1]][0])) ? $dataAux[$arch_aux[1]][0] : "",(isset($dataAux[$arch_aux[1]][1])) ? $dataAux[$arch_aux[1]][1] : "",(isset($dataAux[$arch_aux[1]][2])) ? $dataAux[$arch_aux[1]][2] : "",$archivo,'<a href="'.Yii::app()->createUrl("registros/listarHistoricosFolder", array("name"=>$dir.$archivo)).'" class="btn btn-success btn-mini" id="" name="yt0" type="button">Seleccionar</a>',$isDir);
+					$datos[] = array((isset($dataAux[$arch_aux[1]][0])) ? $dataAux[$arch_aux[1]][0] : "",(isset($dataAux[$arch_aux[1]][1])) ? $dataAux[$arch_aux[1]][1] : "",(isset($dataAux[$arch_aux[1]][2])) ? $dataAux[$arch_aux[1]][2] : "",utf8_encode($archivo),'<a href="'.Yii::app()->createUrl("registros/listarHistoricosFolder", array("name"=>$dir.$archivo)).'" class="btn btn-success btn-mini" id="" name="yt0" type="button">Seleccionar</a>',$isDir);
 					$cont++;
 				}
 			}else {
@@ -290,7 +290,7 @@ class Registros extends CActiveRecord
 						$isDir = 0;
 					}
 					//$datos[] = array('id'=> $cont,'nombre'=>utf8_encode($archivo),'dir'=>$dir.$archivo,'isDir' => $isDir);
-					$datos[] = array((isset($dataAux[$arch_aux[1]][0])) ? $dataAux[$arch_aux[1]][0] : "",(isset($dataAux[$arch_aux[1]][1])) ? $dataAux[$arch_aux[1]][1] : "",(isset($dataAux[$arch_aux[1]][2])) ? $dataAux[$arch_aux[1]][2] : "",$archivo,'<a href="'.Yii::app()->createUrl("registros/listarHistoricosFolder", array("name"=>$dir.$archivo)).'" class="btn btn-success btn-mini" id="" name="yt0" type="button">Seleccionar</a>',$isDir);
+					$datos[] = array((isset($dataAux[$arch_aux[1]][0])) ? $dataAux[$arch_aux[1]][0] : "",(isset($dataAux[$arch_aux[1]][1])) ? $dataAux[$arch_aux[1]][1] : "",(isset($dataAux[$arch_aux[1]][2])) ? $dataAux[$arch_aux[1]][2] : "",utf8_encode($archivo),'<a href="'.Yii::app()->createUrl("registros/listarHistoricosFolder", array("name"=>$dir.$archivo)).'" class="btn btn-success btn-mini" id="" name="yt0" type="button">Seleccionar</a>',$isDir);
 					$cont++;
 				}
 			}
@@ -358,7 +358,7 @@ class Registros extends CActiveRecord
 						$isDir = 0;
 					}
 					//$datos[] = array('id'=> $cont,'nombre'=>utf8_encode($archivo),'dir'=>$dir.$archivo,'isDir' => $isDir);
-					$datos[] = array((isset($dataAux[$archivo][0])) ? $dataAux[$archivo][0] : "",(isset($dataAux[$archivo][1])) ? $dataAux[$archivo][1] : "",(isset($dataAux[$archivo][2])) ? $dataAux[$archivo][2] : "",$archivo,'<a href="'.Yii::app()->createUrl("registros/listarCertificados", array("name"=>$dir.$archivo)).'" class="btn btn-success btn-mini" id="" name="yt0" type="button">Seleccionar</a>',$isDir);
+					$datos[] = array((isset($dataAux[$archivo][0])) ? $dataAux[$archivo][0] : "",(isset($dataAux[$archivo][1])) ? $dataAux[$archivo][1] : "",(isset($dataAux[$archivo][2])) ? $dataAux[$archivo][2] : "",utf8_encode($archivo),'<a href="'.Yii::app()->createUrl("registros/listarCertificados", array("name"=>$dir.$archivo)).'" class="btn btn-success btn-mini" id="" name="yt0" type="button">Seleccionar</a>',$isDir);
 					$cont++;
 				}
 			}else {
@@ -367,7 +367,7 @@ class Registros extends CActiveRecord
 						$isDir = 0;
 					}
 					//$datos[] = array('id'=> $cont,'nombre'=>utf8_encode($archivo),'dir'=>$dir.$archivo,'isDir' => $isDir);
-					$datos[] = array((isset($dataAux[$archivo][0])) ? $dataAux[$archivo][0] : "",(isset($dataAux[$archivo][1])) ? $dataAux[$archivo][1] : "",(isset($dataAux[$archivo][2])) ? $dataAux[$archivo][2] : "",$archivo,'<a href="'.Yii::app()->createUrl("registros/listarCertificados", array("name"=>$dir.$archivo)).'" class="btn btn-success btn-mini" id="" name="yt0" type="button">Seleccionar</a>',$isDir);
+					$datos[] = array((isset($dataAux[$archivo][0])) ? $dataAux[$archivo][0] : "",(isset($dataAux[$archivo][1])) ? $dataAux[$archivo][1] : "",(isset($dataAux[$archivo][2])) ? $dataAux[$archivo][2] : "",utf8_encode($archivo),'<a href="'.Yii::app()->createUrl("registros/listarCertificados", array("name"=>$dir.$archivo)).'" class="btn btn-success btn-mini" id="" name="yt0" type="button">Seleccionar</a>',$isDir);
 					$cont++;
 				}
 			}
