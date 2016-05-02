@@ -20,20 +20,25 @@ class CuradorController extends Controller{
         $modelRegistros = Registros::model();
         $criteria=new CDbCriteria();
 		$dataRegitros = $model->findAll($criteria);
-       
+
+		$registro_update_approved = new CDbCriteria();
+		$registro_update_approved->addCondition('estado=2');
+
 		foreach ($dataRegitros as $registro){
 			$link_detail = '<a class="btn btn-success" href="'.Yii::app()->createUrl("Curador/EspecialistaDetail", array("id"=>$registro->id)).'" role="button">Detalle</a>';
 
-            $registros_update= $modelCollections->findByPk($registro->registros_update_id);
+            $registros_update= $modelCollections->findByPk($registro->registros_update_id, $registro_update_approved);
 
-            $registros= $modelRegistros->findByPk($registros_update->registros_id);
-            $entidad=$modelEntidad->findByPk($registros->Entidad_id);
-            $TipoColeccion=$modelTipoColeccion->findByPk($registros->tipo_coleccion_id);
+			if (isset($registros_update)) {
+				$registros= $modelRegistros->findByPk($registros_update->registros_id);
+				$entidad=$modelEntidad->findByPk($registros->Entidad_id);
+				$TipoColeccion=$modelTipoColeccion->findByPk($registros->tipo_coleccion_id);
 
-            $department=$modelDepartamento->findByAttributes(array('iso_department_code'=>$registros_update->attributes["departamento_id"]));
-			$datos[] = array($registro->subgrupo_taxonomico->grupo_taxonomico->nombre, $registro->subgrupo_taxonomico->nombre,$registro->nombre,$registro->cargo,$entidad->titular,$registros_update->nombre,$TipoColeccion->nombre,$department->department_name,$link_detail);
+				$department=$modelDepartamento->findByAttributes(array('iso_department_code'=>$registros_update->attributes["departamento_id"]));
+				$datos[] = array($registro->subgrupo_taxonomico->grupo_taxonomico->nombre, $registro->subgrupo_taxonomico->nombre,$registro->nombre,$registro->cargo,$entidad->titular,$registros_update->nombre,$TipoColeccion->nombre,$department->department_name,$link_detail);
+			}
 		}
-        
+
 		$this->render('Especialista',array(
 				'model' => $model,
 				'datos' => json_encode($datos),

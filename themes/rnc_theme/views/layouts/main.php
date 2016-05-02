@@ -65,32 +65,32 @@
 <body>
 		 	
 	<header class="sib">
-		<a style="margin-top: 10px; margin-left: 70px;" class="logo" href= "http://rncwp.lumon.com.co" title="Registro Único Nacional de Colecciones Biológicas"><img  src="<?=Yii::app()->theme->baseUrl?>/images/logo_rnc.png"></a>
+		<a style="margin-top: 10px; margin-left: 70px;" class="logo" href= "http://rnc.humboldt.org.co/wp" title="Registro Único Nacional de Colecciones Biológicas"><img  src="<?=Yii::app()->theme->baseUrl?>/images/logo_rnc.png"></a>
 		<!--h1><?php //echo CHtml::encode(Yii::app()->name);  ?></h1-->
 			<nav>
 				<div class='menu_conteneur_menu'>
 					<div class='menu_pagemenu'>
-						<a href='http://rncwp.lumon.com.co/acerca-de/' target='_blank'>Acerca de</a>
+						<a href='http://rnc.humboldt.org.co/wp/acerca-de/' target='_blank'>Acerca de</a>
 					</div>
 					<div class='menu_pagemenu'>
-						<a href='http://rncwp.lumon.com.co/colecciones/' target='_blank'>Colecciones</a>
+						<a href='http://rnc.humboldt.org.co/wp/colecciones/' target='_blank'>Colecciones</a>
 					</div>
 					<div class='menu_pagemenu'>
-						<a href='http://rnc.humboldt.lumon.com.co/index.php/Curador/Especialista' target='_blank'>Directorio</a>
+						<a href='http://rnc.humboldt.org.co/admin/index.php/Curador/Especialista' target='_blank'>Directorio</a>
 					</div>
 					<div class='menu_rubrique'>
 						<a href='#'>Iniciar Sesion</a>
 							<div class='menu_sousmenu'>
 							<div class='menu_pagesousmenu'>
-								<a style="font-size:1em; color:white; background-color:black;" href='http://rnc.humboldt.lumon.com.co/index.php/admin/login' target='_blank'>Ingresar</a>
+								<a style="font-size:1em; color:white; background-color:black;" href='http://rnc.humboldt.org.co/admin/index.php/admin/login' target='_blank'>Ingresar</a>
 							</div>
 							<div class='menu_pagesousmenu'>
-								<a style="font-size:1em; color:white; background-color:black;" href='http://rnc.humboldt.lumon.com.co/index.php/entidad/solicitud' target='_blank'>Solicitar Usuario</a>
+								<a style="font-size:1em; color:white; background-color:black;" href='http://rnc.humboldt.org.co/admin/index.php/entidad/solicitud' target='_blank'>Solicitar Usuario</a>
 							</div>
 					</div>
 				</div>
 				<div class='menu_pagemenu'>
-					<a href='http://rnc.humboldt.lumon.com.co/index.php/pqrs/create' target='_blank'>Contacto</a>
+					<a href='http://rnc.humboldt.org.co/admin/index.php/pqrs/create' target='_blank'>Contacto</a>
 				</div>
 				</div>
 			</nav>
@@ -158,7 +158,7 @@
 			</div>
 			</div>
 			<div class="img-footer img_cc">
-				<a rel="license" href="http://rncwp.lumon.com.co/licencia-creative-commons/"  target="_blank">
+				<a rel="license" href="http://rnc.humboldt.org.co/wp/licencia-creative-commons/"  target="_blank">
 					<img class="img-cc" alt="Licencia Creative Commons" style="border-width:0;" src="http://rncwp.lumon.com.co/wp-content/uploads/2016/03/Licencia_CC.png" /></a><br />
 				</div>
 		</div>

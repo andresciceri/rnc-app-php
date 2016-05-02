@@ -560,7 +560,7 @@ class EntidadController extends Controller{
 	function actionMigracionDatos(){
 		
 		
-		$dir		= "rnc_files/";
+		$dir		= "..".DIRECTORY_SEPARATOR."rnc_files/";
 		$nombre		= $dir."instituciones.csv";
 			
 		$dataArray 	= array();

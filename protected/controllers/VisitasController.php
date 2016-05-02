@@ -106,7 +106,7 @@ class VisitasController extends Controller{
 							$success_saving_all = false;
 						}else {
 							if(isset($_POST['Visitas']['nombreArchivo']) && $_POST['Visitas']['nombreArchivo'] != ''){
-								$pathDir = 'rnc_files'.DIRECTORY_SEPARATOR."visitas".DIRECTORY_SEPARATOR.$model->id;
+								$pathDir = "..".DIRECTORY_SEPARATOR.'rnc_files'.DIRECTORY_SEPARATOR."visitas".DIRECTORY_SEPARATOR.$model->id;
 								if(!file_exists($pathDir)){
 									mkdir($pathDir);
 								}
@@ -245,7 +245,7 @@ class VisitasController extends Controller{
 						$success_saving_all = false;
 					}else {
 							if(isset($_POST['Visitas']['nombreArchivo']) && $_POST['Visitas']['nombreArchivo'] != ''){
-								$pathDir = 'rnc_files'.DIRECTORY_SEPARATOR."visitas".DIRECTORY_SEPARATOR.$model->id;
+								$pathDir = "..".DIRECTORY_SEPARATOR.'rnc_files'.DIRECTORY_SEPARATOR."visitas".DIRECTORY_SEPARATOR.$model->id;
 								if(!file_exists($pathDir)){
 									mkdir($pathDir);
 								}

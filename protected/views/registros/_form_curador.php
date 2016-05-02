@@ -133,8 +133,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <?php 
 	echo $form->textFieldRow($model, 'nombre', array('size'=>32,'maxlength'=>150, 'class'=>'textareaA', 'required' => true));
 	echo '<i class="icon-info-sign" rel="tooltip" title = "Nombre del curador vinculado a la colección."></i>';
-    //echo $form->textFieldRow($model, 'apellido', array('size'=>32,'maxlength'=>150, 'class'=>'textareaA', 'required' => true));
-    //echo '<i class="icon-info-sign" rel="tooltip" title = "Apellido del curador vinculado a la colección."></i>';
+    echo $form->textFieldRow($model, 'apellido', array('size'=>32,'maxlength'=>150, 'class'=>'textareaA', 'required' => true));
+    echo '<i class="icon-info-sign" rel="tooltip" title = "Apellido del curador vinculado a la colección."></i>';
 	echo $form->dropDownListRow(Grupo_Taxonomico::model(), 'nombre', Grupo_Taxonomico::model()->listarGrupoTaxonomico(),array('onchange' => 'actSelectSubgrupo(this,"Curador_subgrupo_taxonomico_id")','prompt' => 'Seleccionar...'));
 	echo '<i class="icon-info-sign" rel="tooltip" title = "Grupo biológico que tiene a cargo el curador."></i>';
 	echo $form->dropDownListRow($model, 'subgrupo_taxonomico_id', Subgrupo_Taxonomico::model()->listarSubgrupoTaxonomico(),array('prompt' => 'Seleccionar...', 'required' => true));

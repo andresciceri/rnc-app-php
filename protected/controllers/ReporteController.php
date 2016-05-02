@@ -678,7 +678,7 @@ class ReporteController extends Controller{
 			$criteria = new CDbCriteria;
 			//$criteria->condition = "t.estado = 2";
             
-            $model = curador::model();
+            $model = Curador::model();
             $modelCollections = Registros_update::model();
             $modelDepartamento=Department::model();
             $modelTipoColeccion=Tipo_Coleccion::model();
@@ -720,8 +720,8 @@ class ReporteController extends Controller{
                 $dataReporte[$cont]['Telefono'] 			= $curador->telefono;
                 $dataReporte[$cont]['Email'] 			= $curador->email;
                 $dataReporte[$cont]['Perfil'] 			= $curador->pagina_web;
-                $dataReporte[$cont]['Grupo'] 			= $curador->subgrupo_taxonomico->grupo_taxonomico->nombre;
-                $dataReporte[$cont]['SubGrupo'] 			= $curador->subgrupo_taxonomico->nombre;
+                $dataReporte[$cont]['Grupo'] 			= (isset($curador->subgrupo_taxonomico->grupo_taxonomico->nombre)) ? $curador->subgrupo_taxonomico->grupo_taxonomico->nombre : "";
+                $dataReporte[$cont]['SubGrupo'] 			= (isset($curador->subgrupo_taxonomico->nombre)) ? $curador->subgrupo_taxonomico->nombre : "";
                 $dataReporte[$cont]['Departamento'] 			= $department->department_name;
                 $dataReporte[$cont]['Municipio'] 			= $municipio->county_name;
                 $dataReporte[$cont]['TipoColeccion'] 			= $TipoColeccion->nombre;

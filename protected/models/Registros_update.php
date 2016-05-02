@@ -33,7 +33,7 @@
  * @property string $sistematizacion
  * @property int 	$ejemplar_tipo
  * @property int	$ej_tipo_cantidad
- * 
+ *
  * @property int $contactos_id
  * @property int $dilegenciadores_id
  * @property int $registros_id
@@ -56,28 +56,28 @@ class Registros_update extends CActiveRecord
 	private $archivoAnexo;
 	private $archivoColeccion;
 	private $archivoDivulgativo;
-	
+
 	private $archivosAnexos;
 	private $archivosColecciones;
 	private $archivosDivulgativos;
 	public  $archivoCertificado;
 	public  $archivoCertificados;
 
-	
+
 	public $comentarioCancelar;
-	
+
 	public $aprobadop;
 	public $elaborado;
-	
+
 	public $notificar;
 
 	public $curadores;
-	
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-	
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -85,7 +85,7 @@ class Registros_update extends CActiveRecord
 	{
 		return 'registros_update';
 	}
-	
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -94,7 +94,7 @@ class Registros_update extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-				array('nombre,acronimo,fecha_fund,descripcion,direccion,departamento_id,ciudad_id,telefono,email,cobertura_tax,cobertura_geog,cobertura_temp,listado_anexos,terminos,sistematizacion,deorreferenciados','required'),
+				array('nombre,acronimo,fecha_fund,descripcion,direccion,departamento_id,ciudad_id,telefono,email,cobertura_tax,cobertura_geog,cobertura_temp,listado_anexos,terminos,sistematizacion,deorreferenciados,Latitud,Longitud','required'),
 				array('nombre,telefono,pagina_web','length','max'=>150),
 				array('acronimo,email','length','max'=>45),
 				array('ej_tipo_cantidad','numerical','integerOnly'=>true,'message' => 'El dato solo puede ser numérico'),
@@ -103,13 +103,15 @@ class Registros_update extends CActiveRecord
 				array('sistematizacion,direccion,comentario','length','max'=>4000),
 				array('email', 'email'),
 				array('acronimo', 'safe', 'on'=>'search'),
-				
+				array('Longitud', 'numerical', 'min' => -180, 'max' => 180, 'message' => 'La longitud es un valor entre -180 y 180 grados'),
+				array('Latitud' , 'numerical', 'min' => -90 , 'max' => 90 , 'message' => 'La latitud es un valor entre -90 y 90 grados'),
+
 				/*array('archivoAnexo','file','maxSize' => 20000,'types' => 'pdf,zip'),
 				array('archivoColeccion','file','maxSize' => 20000,'types' => 'jpg,gif,jpeg,avi,mp4,mp3'),
 				array('archivoDivulgativo','file','maxSize' => 20000,'types' => 'pdf,jpg,gif,jpeg'),*/
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -132,7 +134,7 @@ class Registros_update extends CActiveRecord
 				'curador'				=> array(self::HAS_MANY, 'Curador', 'registros_update_id')
 		);
 	}
-	
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -178,9 +180,9 @@ class Registros_update extends CActiveRecord
 				'notificar'					=> 'Notificar al usuario'
 		);
 	}
-	
+
 	public function search(){
-		
+
 		$criteria=new CDbCriteria;
 		if(isset($this->registros->numero_registro)){
 			$criteria->compare('registros.numero_registro', $this->registros->numero_registro);
@@ -193,14 +195,14 @@ class Registros_update extends CActiveRecord
 		}
 		$criteria->compare('t.estado', 2);
 		$criteria->compare('acronimo',$this->acronimo);
-		
+
 		if(isset($this->registros->entidad)){
 			$criteria->compare('registros.entidad.id',$this->registros->entidad->id);
 		}
-		
+
 		$criteria->with = array('registros','county');
-		
-		
+
+
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
 				'sort' => false,
@@ -209,7 +211,7 @@ class Registros_update extends CActiveRecord
 						)
 					));
 	}
-	
+
 	public function curadoresList($id = 0){
 		$criteria = new CDbCriteria;
 		$criteria->compare('t.Registros_update_id',$id);
@@ -227,13 +229,13 @@ class Registros_update extends CActiveRecord
 
 	public function dataTamanoList($id){
 		$criteria = new CDbCriteria;
-		
+
 		$criteria->compare('t.Registros_update_id', $id);
 		$criteria->with = array('tipo_preservacion');
 		$criteria->order = 't.id ASC';
-		
+
 		$modelTamano = Tamano_Coleccion::model()->find();
-		
+
 		return new CActiveDataProvider($modelTamano, array(
 				'criteria'=>$criteria,
 				'sort' => false,
@@ -242,15 +244,15 @@ class Registros_update extends CActiveRecord
 				)
 		));
 	}
-	
+
 	public function dataTipoList($id){
 		$criteria = new CDbCriteria;
-	
+
 		$criteria->compare('t.Registros_update_id', $id);
 		$criteria->order = 'id ASC';
-	
+
 		$modelTipo = Tipos_En_Coleccion::model();
-	
+
 		return new CActiveDataProvider($modelTipo, array(
 				'criteria'=>$criteria,
 				'sort' => false,
@@ -259,16 +261,16 @@ class Registros_update extends CActiveRecord
 				)
 		));
 	}
-	
+
 	public function dataComposicionList($id){
 		$criteria = new CDbCriteria;
-	
+
 		$criteria->compare('t.Registros_update_id', $id);
 		$criteria->with = array('grupo_taxonomico','subgrupo_taxonomico');
 		$criteria->order = 't.id ASC';
-		
+
 		$modelComposicion = Composicion_General::model();
-	
+
 		return new CActiveDataProvider($modelComposicion, array(
 				'criteria'=>$criteria,
 				'sort' => false,
@@ -277,15 +279,15 @@ class Registros_update extends CActiveRecord
 				)
 		));
 	}
-	
+
 	public function dataArchivosList($id){
 		$criteria = new CDbCriteria;
-	
+
 		$criteria->compare('t.Registros_update_id', $id);
 		$criteria->order = 'clase ASC';
-	
+
 		$modelArchivo = Archivos::model();
-	
+
 		return new CActiveDataProvider($modelArchivo, array(
 				'criteria'=>$criteria,
 				'sort' => false,
@@ -297,12 +299,12 @@ class Registros_update extends CActiveRecord
 
 	public function dataUrlsList($id){
 		$criteria = new CDbCriteria;
-	
+
 		$criteria->compare('t.registros_update_id', $id);
 		$criteria->order = 'id ASC';
-	
+
 		$modelUrl = Urls_Registros::model();
-	
+
 		return new CActiveDataProvider($modelUrl, array(
 				'criteria'=>$criteria,
 				'sort' => false,
@@ -311,20 +313,20 @@ class Registros_update extends CActiveRecord
 				)
 		));
 	}
-		
+
 	public function listarRegistrosDetalles($id){
 		$criteria = new CDbCriteria;
-		
+
 		$criteria->compare('t.registros_id', $id);
-		
+
 		if(Yii::app()->user->getState("roles") == "admin"){
 			$criteria->addCondition('t.estado != 0');
 		}
-		
+
 		$criteria->order = 'fecha_act DESC';
-		
+
 		$criteria->with = array('county');
-		
+
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
 				'sort' => false,
@@ -333,7 +335,7 @@ class Registros_update extends CActiveRecord
 				)
 		));
 	}
-	
+
 	public function listYearFund()
 	{
 		$listyear = array();
@@ -341,10 +343,10 @@ class Registros_update extends CActiveRecord
 		for ($i = 0; $i < 221; $i++) {
 			$listyear[$i] = array('id' => $year + $i, 'nombre' => $year + $i);
 		}
-		
+
 		return CHtml::listData($listyear, 'id','nombre');
 	}
-	
+
 	public function crearEstilo(){
 		if($this->estado != 0){
 			return '<a class="view" rel="tooltip" href="/rnc_app/index.php/registros/viewDetail/5" data-original-title="Mostrar">
@@ -355,75 +357,75 @@ class Registros_update extends CActiveRecord
 	{
 		return CHtml::listData(County::model()->findAll(County::model()->listCounty()), 'iso_county_code','county_name');
 	}
-	
+
 	public function getArchivoAnexo() {
 		return $this->archivoAnexo;
 	}
-	
+
 	public function setArchivoAnexo($value)
 	{
 		$this->archivoAnexo = $value;
 	}
-	
+
 	public function getArchivoColeccion() {
 		return $this->archivoColeccion;
 	}
-	
+
 	public function setArchivoColeccion($value)
 	{
 		$this->archivoColeccion = $value;
 	}
-	
+
 	public function getArchivoDivulgativo() {
 		return $this->archivoDivulgativo;
 	}
-	
+
 	public function setArchivoDivulgativo($value)
 	{
 		$this->archivoDivulgativo = $value;
 	}
-	
+
 	public function getArchivosAnexos() {
 		return $this->archivosAnexos;
 	}
-	
+
 	public function setArchivosAnexos($value)
 	{
 		$this->archivosAnexos = $value;
 	}
-	
+
 	public function getArchivosColecciones() {
 		return $this->archivosColecciones;
 	}
-	
+
 	public function setArchivosColecciones($value)
 	{
 		$this->archivosColecciones = $value;
 	}
-	
+
 	public function getArchivosDivulgativos() {
 		return $this->archivosDivulgativos;
 	}
-	
+
 	public function setArchivosDivulgativos($value)
 	{
 		$this->archivosDivulgativos = $value;
 	}
-	
+
 	public function listarColecciones()
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
-	
+
 		$criteria=new CDbCriteria;
-		
+
 		$criteria->compare('t.estado', 2);
-				
+
 		$criteria->with = array('registros','county','contactos');
-	
-			
+
+
 		return $criteria;
 	}
-	
+
 }
 ?>

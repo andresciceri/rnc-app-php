@@ -125,7 +125,7 @@ class SiteController extends Controller
 	}
 	
 	public function actionArchivoAuto(){
-		$filename = "rnc_files".DIRECTORY_SEPARATOR."certificadoautodeclaracion2.0.pdf";
+		$filename = "..".DIRECTORY_SEPARATOR."rnc_files".DIRECTORY_SEPARATOR."certificadoautodeclaracion2.0.pdf";
 		header("Expires: -1");
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 		header("Content-type: application/xlsx;\n"); //or yours?
@@ -141,7 +141,7 @@ class SiteController extends Controller
 	}
 	
 	public function actionArchivoInstructivo(){
-		$filename = "rnc_files".DIRECTORY_SEPARATOR."InstructivoRNC2.0.2.pdf";
+		$filename = "..".DIRECTORY_SEPARATOR."rnc_files".DIRECTORY_SEPARATOR."InstructivoRNC2.0.2.pdf";
 		header("Expires: -1");
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 		header("Content-type: application/xlsx;\n"); //or yours?
@@ -157,7 +157,7 @@ class SiteController extends Controller
 	}
 
 	public function actionArchivoCertificadoAuto(){
-		$filename = "rnc_files".DIRECTORY_SEPARATOR."certificadoautodeclaracionamnistia.docx";
+		$filename = "..".DIRECTORY_SEPARATOR."rnc_files".DIRECTORY_SEPARATOR."certificadoautodeclaracionamnistia.docx";
 		header("Expires: -1");
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 		header("Content-type: application/multipart;\n"); //or yours?
@@ -173,7 +173,7 @@ class SiteController extends Controller
 	}
 
 	public function actionArchivoPlantilla(){
-		$filename = "rnc_files".DIRECTORY_SEPARATOR."anexo_plantilla_informacion_asociada.xlsx";
+		$filename = "..".DIRECTORY_SEPARATOR."rnc_files".DIRECTORY_SEPARATOR."anexo_plantilla_informacion_asociada.xlsx";
 		header("Expires: -1");
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 		header("Content-type: application/multipart;\n"); //or yours?

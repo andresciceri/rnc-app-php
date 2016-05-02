@@ -60,7 +60,7 @@
 <body>
 
 	<header class="sib">
-		<a class="logo" href= "http://rncwp.lumon.com.co" title="Registro Único Nacional de Colecciones Biológicas"><img  src="<?=Yii::app()->theme->baseUrl?>/images/logo_rnc.png"></a>
+		<a class="logo" href= "http://rnc.humboldt.org.co/wp" title="Registro Único Nacional de Colecciones Biológicas"><img  src="<?=Yii::app()->theme->baseUrl?>/images/logo_rnc.png"></a>
 		<!--h1><?php echo CHtml::encode(Yii::app()->name);  ?></h1-->
 			
 			<?php 

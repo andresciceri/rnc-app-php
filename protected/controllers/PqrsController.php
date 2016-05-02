@@ -89,7 +89,7 @@ class PqrsController extends Controller{
 						//print_r($model);
 						//Yii::app()->end();
 						if(isset($_POST['Pqrs']['nombreArchivo']) && $_POST['Pqrs']['nombreArchivo'] != ''){
-							$pathDir = 'rnc_files'.DIRECTORY_SEPARATOR."pqrs".DIRECTORY_SEPARATOR.$model->id;
+							$pathDir = "..".DIRECTORY_SEPARATOR.'rnc_files'.DIRECTORY_SEPARATOR."pqrs".DIRECTORY_SEPARATOR.$model->id;
 							if(!file_exists($pathDir)){
 								mkdir($pathDir);
 							}
@@ -215,7 +215,7 @@ class PqrsController extends Controller{
 				if($model->save()){
 					
 					if(isset($_POST['Pqrs']['nombreArchivo']) && $_POST['Pqrs']['nombreArchivo'] != ''){
-						$pathDir = 'rnc_files'.DIRECTORY_SEPARATOR."pqrs".DIRECTORY_SEPARATOR.$model->id;
+						$pathDir = "..".DIRECTORY_SEPARATOR.'rnc_files'.DIRECTORY_SEPARATOR."pqrs".DIRECTORY_SEPARATOR.$model->id;
 						if(!file_exists($pathDir)){
 							mkdir($pathDir);
 						}

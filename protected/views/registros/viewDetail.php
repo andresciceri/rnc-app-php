@@ -11,10 +11,10 @@ $(document).ready(function() {
 } );
 
 function activarRegistro(id){
-	
+
 	if(confirm("Desea reabrir el formulario del registro?") == true){
 		$.post("../activarRegistro", {idRegistro: id},function(data){
-			
+
 			if(data.status == 'failure'){
 				alert("Ocurrió un problema y no se pudo cancelar el registro");
 				window.location.href ="<?=Yii::app()->createUrl('registros'.DIRECTORY_SEPARATOR.$model->registros->id);?>";
@@ -26,7 +26,7 @@ function activarRegistro(id){
 	}else{
 		window.stop();
 	}
-	
+
 }
 </script>
 
@@ -51,14 +51,14 @@ $this->widget('bootstrap.widgets.TbButtonGroup', array(
     	<li><a href="#tab4" data-toggle="tab">Contacto</a></li>
     	<li><a href="#tab5" data-toggle="tab">Elaborado por</a></li>
   	</ul>
-  	
+
   	<div class="tab-content">
   		<i class="icon-print printR" onclick="document.getElementById('tab1').focus(); print();"></i>
 	  	<div class="tab-pane fade " id="tab2">
-	  		
+
 			<fieldset>
 				<legend class="form_legend">INFORMACIÓN BÁSICA DE LA COLECCIÓN</legend>
-				<?php 
+				<?php
 				$this->widget('zii.widgets.CDetailView', array(
 					'data'=>$model,
 					'attributes'=>array(
@@ -77,27 +77,27 @@ $this->widget('bootstrap.widgets.TbButtonGroup', array(
 						'fecha_act',
 						'fecha_rev',
 						'Latitud',
-						'Logitud'
+						'Longitud'
 					)
 				));
 				?>
 				<input type="hidden" id="hddLat" value="<?php echo $model->Latitud; ?>">
-				<input type="hidden" id="hddLng" value="<?php echo $model->Logitud; ?>">
-				
+				<input type="hidden" id="hddLng" value="<?php echo $model->Longitud; ?>">
+
 			<div id="map" style="width: 100%; height: 400px;"></div>
 				<script>
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     initMap();
-});					
-				
+});
+
 				  var markers = [];
 					// Sets the map on all markers in the array.
 					function setMapOnAll(map) {
 					  for (var i = 0; i < markers.length; i++) {
 						markers[i].setMap(map);
 					  }
-					}					
-		
+					}
+
 				  function initMap() {
 					var map = new google.maps.Map(document.getElementById('map'), {
 					center: new google.maps.LatLng(5.707729, -76.666929),
@@ -107,25 +107,25 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
 					var lat = $('#hddLat').val();
 					var lng = $('#hddLng').val();
-					var latLng = new google.maps.LatLng(lat,lng);	
-					
+					var latLng = new google.maps.LatLng(lat,lng);
+
 					var marker = new google.maps.Marker({
 						position: latLng,
 						map: map,
 						title: 'Hello World!'
-					});    
+					});
 				  }
 
 				</script>
 				<script async defer
 				src="https://maps.googleapis.com/maps/api/js?callback=initMap">
-				</script>				
+				</script>
 			</fieldset>
-			
-				
+
+
 			<fieldset>
 				<legend class="form_legend">Cobertura</legend>
-				<?php 
+				<?php
 				$this->widget('zii.widgets.CDetailView', array(
 					'data'=>$model,
 					'attributes'=>array(
@@ -136,10 +136,10 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				));
 				?>
 			</fieldset>
-			
+
 			<fieldset>
 				<legend class="form_legend">DOCUMENTOS ADJUNTOS</legend>
-				<?php 
+				<?php
 				$this->widget('zii.widgets.CDetailView', array(
 					'data'=>$model,
 					'attributes'=>array(
@@ -148,10 +148,10 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				));
 				?>
 			</fieldset>
-			
+
 			<fieldset>
 				<legend class="form_legend">INFORMACIÓN COMPLEMENTARIA</legend>
-				<?php 
+				<?php
 				$this->widget('zii.widgets.CDetailView', array(
 					'data'=>$model,
 					'attributes'=>array(
@@ -163,15 +163,15 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				));
 				?>
 			</fieldset>
-			
+
 			<fieldset>
 				<legend class="form_legend">Tipos de preservación</legend>
 			       	<?php echo $this->renderPartial('_tamano_col_table', array('listTamano'=>$model->dataTamanoList($model->id))); ?>
 			</fieldset>
-			
+
 			<fieldset>
 				<legend class="form_legend">Tipos en la colección</legend>
-					<?php 
+					<?php
 						$this->widget('zii.widgets.CDetailView', array(
 							'data'=>$model,
 							'attributes'=>array(
@@ -186,12 +186,12 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 					?>
 			       	<?php echo $this->renderPartial('_tipo_col_table', array('listTipo'=>$model->dataTipoList($model->id))); ?>
 			</fieldset>
-			
+
 			<fieldset>
 				<legend class="form_legend">Nivel de catalogación, sistematización e identificación</legend>
 			       	<?php echo $this->renderPartial('_composicion_col_table', array('listComposicion'=>$model->dataComposicionList($model->id))); ?>
 			</fieldset>
-			
+
 			<fieldset>
 				<legend class="form_legend">Recursos web</legend>
 			       	<?php echo $this->renderPartial('_urls_table', array('listUrls'=>$model->dataUrlsList($model->id))); ?>
@@ -202,11 +202,11 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 			       	<?php echo $this->renderPartial('_archivos_col_table', array('listArchivos'=>$model->dataArchivosList($model->id))); ?>
 			</fieldset>
 		</div>
-		
+
 		<div class="tab-pane fade in active" id="tab1">
 			<fieldset>
 				<legend class="form_legend">DATOS DEL TITULAR</legend>
-				<?php 
+				<?php
 				$this->widget('zii.widgets.CDetailView', array(
 					'data'=>$model->registros,
 					'attributes'=>array(
@@ -235,11 +235,11 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				?>
 			</fieldset>
 		</div>
-		
+
 		<div class="tab-pane fade" id="tab3">
 			<fieldset>
 				<legend class="form_legend">DATOS DE CURADORES</legend>
-				<?php 
+				<?php
 					$this->widget('bootstrap.widgets.TbExtendedGridView', array(
 						'type'=>'striped bordered condensed',
 						'id'=>'curadores_lista-grid',
@@ -264,7 +264,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		<div class="tab-pane fade" id="tab4">
 			<fieldset>
 				<legend class="form_legend">DATOS DE CONTACTO</legend>
-				<?php 
+				<?php
 				$this->widget('zii.widgets.CDetailView', array(
 					'data'=>$model,
 					'attributes'=>array(
@@ -281,11 +281,11 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				?>
 			</fieldset>
 		</div>
-		
+
 		<div class="tab-pane fade" id="tab5">
 			<fieldset>
 				<legend class="form_legend">ELABORACIÓN DEL REGISTRO</legend>
-				<?php 
+				<?php
 				$this->widget('zii.widgets.CDetailView', array(
 					'data'=>$model,
 					'attributes'=>array(

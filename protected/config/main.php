@@ -97,8 +97,8 @@ return array(
 			//'username' => 'lgrajales',
 			//'password' => 'Lg2013-',
 			//'emulatePrepare' => true,
-			'username' => 'root', //actualizar usuario
-			'password' => '', //actualizar password
+			'username' => getenv('DB_USER_RNC'), //actualizar usuario
+ 			'password' => getenv('DB_PWD_RNC'), //actualizar password
 			'charset' => 'utf8',
 			'emulatePrepare' => false,
 			'enableProfiling'=>true,
@@ -108,9 +108,9 @@ return array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
 		),
-        //'log'=>array(
-        //    'class'=>'CLogRouter',
-        //    'routes'=>array(
+        'log'=>array(
+            'class'=>'CLogRouter',
+            'routes'=>array(
         //        /*array(
         //            'class'=>'CFileLogRoute',
         //            'levels'=>'error, warning, trace, profile, info',
@@ -122,12 +122,12 @@ return array(
         //        ),*/
         //        // uncomment the following to show log messages on web pages
 				
-        //        array(
-        //            'class'=>'CWebLogRoute',
-        //            'levels'=>'error, warning, trace, profile, info',
-        //        ),
-        //    ),
-        //),
+               /* array(
+                    'class'=>'CWebLogRoute',
+                   'levels'=>'error, warning, trace, profile, info',
+                ),*/
+            ),
+        ),
 		/*'bootstrap'=>array(
 				'class'=>'bootstrap.components.Bootstrap',
 		),*/
